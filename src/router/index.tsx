@@ -4,9 +4,7 @@ import Login from "@/pages/User/Login";
 import NotFound from "@/pages/NotFound";
 import ForgotPassword from "@/pages/User/ForgotPassword";
 import Info from "@/pages/User/Info";
-import NodeList from "@/pages/Node/NodeList";
-import NodeDetails from "@/pages/Node/NodeDetails";
-import NodeLogger from "@/pages/Node/NodeLogger";
+import Search from "@/pages/Search";
 
 const router: RouteConfig[] = [
     {
@@ -17,38 +15,18 @@ const router: RouteConfig[] = [
         navbar: true,
     },
     {
-        path: '/node',
-        title: "节点管理",
+        path: "/about",
+        component: Home,
+        title: "关于 Goograms",
+        exact: true,
         navbar: true,
-        redirect: "/node/list",
-        routes: [
-            {
-                path: "/node/list",
-                component: NodeList,
-                title: "节点列表",
-                exact: true,
-                navbar: true,
-            },
-            {
-                path: "/node/details/:id",
-                component: NodeDetails,
-                title: "节点详情",
-                exact: true,
-                navbar: true,
-            },
-            {
-                path: "/node/logger/:id",
-                component: NodeLogger,
-                title: "节点日志",
-                exact: true,
-                navbar: true,
-            },
-            {
-                path: '*',
-                title: '错误404',
-                component: NotFound,
-            }
-        ],
+    },
+    {
+        path: "/search",
+        component: Search,
+        title: "Goograms搜索",
+        exact: true,
+        navbar: true,
     },
     {
         path: '/user',
@@ -89,7 +67,7 @@ const router: RouteConfig[] = [
     {
         path: '*',
         title: '错误404',
-        component: NotFound,
+        redirect: "/",
     }
 ];
 export default router;

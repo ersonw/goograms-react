@@ -13,12 +13,10 @@ html {
 .ant-layout{
   .ant-layout{
     .ant-layout-content {
-      height:calc(100% - 64px - 69px);
-      //width: 90%;
-      //>table{
-      //  min-width: 99%;
-      //  height: 99%;
-      //}
+      height: 100%;
+      min-height:calc(100vh - 64px - 69px);
+      //min-height:calc(700px);
+      background: rgb(253, 253, 254);
     }
   }
   .ant-layout-header {
@@ -28,13 +26,13 @@ html {
     //width: 99%;
   }
   .ant-layout-footer {
-    //color: #fff;
-    //background: #7dbcea;
-    //width: 99%;
-    background: #fdfdfe;
+    font-size: 14px;
+    color: #70757a;
+    background: #f2f2f2;
+    width: 100%;
   }
-
 }
+
 .ant-divider{
   //max-width: 50%;
 }
@@ -45,4 +43,33 @@ html {
   //@media(min-width:1000px){
   //  width:calc(100% - 200px);
   //}
+}
+@keyframes bomaction{
+  0%{
+    top:0%;
+  }
+  46%{
+    top:52%;
+  }
+  48%{
+    top:48%;
+  }
+  50%{
+    top:52%;
+  }
+  52%{
+    top:48%;
+  }
+  54%{
+    top:52%;
+  }
+  56%{
+    top:48%;
+  }
+  57%{
+    top:50%;
+  }
+  100%{
+    top:50%;
+  }
 }

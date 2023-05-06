@@ -505,33 +505,47 @@ module.exports = function (webpackEnv) {
               }),
             },
             {
-              test: lessRegex,
-              exclude: lessModuleRegex,
-              use: getStyleLoaders(
-                  {
-                    importLoaders: 2,
-                    sourceMap: isEnvProduction && shouldUseSourceMap,
-                    // sourceMap: false,
-                  },
-                  'less-loader'
-              ),
-              sideEffects: true,
-            },
-            {
-              test: lessModuleRegex,
-              use: getStyleLoaders(
-                  {
-                    importLoaders: 2,
-                    sourceMap: isEnvProduction && shouldUseSourceMap,
-                    // sourceMap: false,
-                    // modules: true,
-                    modules: {
-                      mode: 'local',
-                      getLocalIdent: getCSSModuleLocalIdent,
+              test: /\.less$/i,
+              use: [
+                {
+                  loader: "style-loader",
+                },
+                {
+                  loader: "css-loader",
+                },
+                {
+                  loader: "less-loader",
+                  options: {
+                    lessOptions: {
+                      strictMath: true,
+                      sourceMap: isEnvProduction && shouldUseSourceMap,
                     },
                   },
-                  'less-loader'
-              )
+                },
+              ],
+            },
+            {
+              test: /\.module\.less$/i,
+              use: [
+                {
+                  loader: "style-loader",
+                },
+                {
+                  loader: "css-loader",
+                },
+                {
+                  loader: "less-loader",
+                  options: {
+                    lessOptions: {
+                      sourceMap: isEnvProduction && shouldUseSourceMap,
+                      modules: {
+                        mode: 'local',
+                        getLocalIdent: getCSSModuleLocalIdent,
+                      },
+                    },
+                  },
+                },
+              ],
             },
             // Opt-in support for SASS (using .scss or .sass extensions).
             // By default we support SASS Modules with the

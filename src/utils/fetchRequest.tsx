@@ -23,7 +23,7 @@ const err = (error: { response: { status: number; }; message: string | string[];
     // 请求超时
     const isTimeout = error.message.includes("timeout");
     // @ts-ignore
-    window.document.message.error(isTimeout ? "请求已超时，请刷新或检查互联网连接" : "请检查网络是否已连接");
+    // window.document.message.error(isTimeout ? "请求已超时，请刷新或检查互联网连接" : "请检查网络是否已连接");
   }
   return Promise.reject(error);
 };
@@ -55,22 +55,25 @@ service.interceptors.response.use( (response: any) => {
     return response;
   }
   const {code,msg,data} = response.data;
-  if(code === 201){
-    Auth.del();
-  }
-  if (msg){
-    if(code === 0){
-      // @ts-ignore
-      window.document.message.success(msg);
-    }else{
-      // @ts-ignore
-      window.document.message.error(`code:${code} ${msg}`);
+  if (data!==undefined){
+    if (code === 201) {
+      Auth.del();
     }
+    if (msg) {
+      if (code === 0) {
+        // @ts-ignore
+        window.document.message.success(msg);
+      } else {
+        // @ts-ignore
+        window.document.message.error(`code:${code} ${msg}`);
+      }
+    }
+    if (code !== 0) {
+      return Promise.reject(msg);
+    }
+    return data;
   }
-  if(code!==0){
-    return Promise.reject(msg);
-  }
-  return data;
+  return response.data;
 }, err);
 
 export default service;

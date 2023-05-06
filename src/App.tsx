@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import '@/App.less';
-import BaseNavBar from "@/components/BaseNavBar";
+// import BaseNavBar from "@/components/BaseNavBar";
 import {Provider} from "react-redux";
 import store from './store';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
@@ -9,7 +9,7 @@ import {Layout, notification,message} from "antd";
 import BaseHeader from "@/components/BaseHeader";
 import BaseFooter from "@/components/BaseFooter";
 import type {NotificationPlacement} from 'antd/es/notification/interface';
-import { string } from 'prop-types';
+// import { string } from 'prop-types';
 
 const Context = React.createContext({ name: 'Default' });
 const RouteComment = (props: any) =>{
@@ -65,10 +65,10 @@ const App = () => {
     return (
         <Provider store={store}>
             <Router>
-                <Layout style={{width: '100vw',height: '100vh'}}>
+                <Layout style={{width: '100vw',}}>
                     {contextHolder}
                     {contextHolderMessage}
-                    <BaseNavBar />
+                    {/*<BaseNavBar />*/}
                     <Layout>
                         <BaseHeader />
                         <Layout.Content>

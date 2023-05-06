@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Goograms",
+  "name": "Goograms search your wants",
   "icons": [
     {
       "src": "favicon.ico",
