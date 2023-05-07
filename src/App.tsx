@@ -58,8 +58,8 @@ const App = () => {
     window.document.message = messageApi;
     // @ts-ignore
     window.document.newWindow = (url: string)=>{
-        // window.open(url,'_blank','width=300,height=200,menubar=no,toolbar=no,status=no,scrollbars=yes')
-        window.open(url,'_blank','menubar=no,toolbar=no,status=no,scrollbars=yes')
+        window.open(url,'_blank','width=600,height=400,menubar=no,toolbar=no,status=no,scrollbars=yes')
+        // window.open(url,'_blank','menubar=no,toolbar=no,status=no,scrollbars=yes')
     };
 
     return (

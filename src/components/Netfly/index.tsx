@@ -21,7 +21,7 @@ const Netfly = ({query}: any) => {
         const itemTitle = items[i].getElementsByClassName('module-card-item-title').item(0)!.getElementsByTagName('a').item(0);
         let url = itemTitle!.href;
         const title = itemTitle!.getElementsByTagName('strong').item(0)!.innerText;
-        url = url.replace(/(ht|f)tp(s?):\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*((:[0-9]+)?)*(\/?)(index\.php\/?)/gi,"https://netflycn.com/");
+        url = url.replace(/(ht|f)tp(s?):\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*((:[0-9]+)?)*(\/?)((index\.php\/)?)/gi,"https://netflycn.com/");
         const pic = items[i].getElementsByClassName('module-item-pic').item(0)!.getElementsByTagName('img').item(0)!.getAttribute('data-original');
         let resTime = items[i].getElementsByClassName('module-info-item-content').item(0);
         let actor = items[i].getElementsByClassName('module-info-item-content').item(1);
@@ -31,8 +31,8 @@ const Netfly = ({query}: any) => {
         resTime = resTime!.innerText;
 
         videos =[...videos,{title, url, pic, actor, resTime}];
-        console.log(items[i]);
-        console.log(actor);
+        // console.log(items[i]);
+        // console.log(actor);
     }
     return (<div className={styles.netfly}>
         <br />
