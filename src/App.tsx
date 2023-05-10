@@ -9,7 +9,7 @@ import {Layout, notification,message} from "antd";
 import BaseHeader from "@/components/BaseHeader";
 import BaseFooter from "@/components/BaseFooter";
 import type {NotificationPlacement} from 'antd/es/notification/interface';
-// import { string } from 'prop-types';
+import {Md5} from 'ts-md5';
 
 const Context = React.createContext({ name: 'Default' });
 const RouteComment = (props: any) =>{
@@ -60,6 +60,25 @@ const App = () => {
     window.document.newWindow = (url: string)=>{
         window.open(url,'_blank','width=600,height=400,menubar=no,toolbar=no,status=no,scrollbars=yes')
         // window.open(url,'_blank','menubar=no,toolbar=no,status=no,scrollbars=yes')
+    };
+    // @ts-ignore
+    window.document.newWindowId = ()=>{
+        const canvas = document.createElement('canvas');
+        canvas.width = 200;
+        canvas.height=200;
+        const ctx = canvas.getContext('2d')!;
+        var txt = "Goograms,com <canvas> 1.0";
+        ctx.textBaseline = "top";
+        ctx.font = "14px 'Arial'";
+        ctx.textBaseline = "alphabetic";
+        ctx.fillStyle = "#f60";
+        ctx.fillRect(125,1,62,20);
+        ctx.fillStyle = "#069";
+        ctx.fillText(txt, 2, 15);
+        ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+        ctx.fillText(txt, 4, 17);
+        const dataURL = canvas.toDataURL();
+        return (Md5.hashStr(dataURL));
     };
 
     return (

@@ -49,10 +49,11 @@ const BaseHeader = (props: any)=>{
             setText(q as any);
             document.title = `${q} - ${title}`;
         }
-    }, [search]);
+    }, [search,title]);
 
     const onSearch = ()=>{
-        const searchString = qs.stringify({q: text});
+        // @ts-ignore
+        const searchString = qs.stringify({q: text,page: 1,cid: window.document.newWindowId()});
         history.push({pathname: "/search", search: searchString})
         history.go()
     }
@@ -70,6 +71,7 @@ const BaseHeader = (props: any)=>{
                             placeholder="输入你想搜索的内容"
                             suffix={<SearchOutlined onClick={onSearch} style={{fontWeight: 'bold',color: '#4285f4',marginRight: '0.9vw'}} />}
                             // showCount={true}
+                            maxLength={120}
                             value={text}
                             onChange={(e)=>{setText(e.target.value)}}
                             onKeyUp={(e)=> {

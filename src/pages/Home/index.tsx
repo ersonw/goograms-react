@@ -7,7 +7,12 @@ import qs from 'query-string';
 const Home: React.FC=(props: any)=>{
     const [text,setText] = useState('');
     const {history} = props;
-    // console.log(props);
+    const onSearch = ()=>{
+        // @ts-ignore
+        const searchString = qs.stringify({q: text,page: 1,cid: window.document.newWindowId()});
+        history.push({pathname: "/search", search: searchString})
+        history.go()
+    }
     return (
         <div className={styles.home}>
             <div className={styles.logo}>
@@ -22,9 +27,7 @@ const Home: React.FC=(props: any)=>{
                 onChange={(e)=>{setText(e.target.value)}}
                 onKeyUp={(e)=> {
                     if(e.keyCode === 13) {
-                        const searchString = qs.stringify({q: text});
-                        history.push({pathname: "/search", search: searchString})
-                        history.go()
+                        onSearch();
                     }
                 }}
             />
