@@ -30,6 +30,22 @@ const ResultItem = (props: ResultItemProps) => {
         return () => {
         };
     }, [url]);
+    const onClick = (link: any) => {
+        if (link!==undefined){
+            // if (/^https?:\/\/t\.me\/.+/.test(link)){
+            //
+            // }
+            if (`${link}`.indexOf("?")>-1){
+                // @ts-ignore
+                link = `${link}&cid=${window.document.newWindowId()}`;
+            }else{
+                // @ts-ignore
+                link = `${link}?cid=${window.document.newWindowId()}`;
+            }
+            // @ts-ignore
+            window.document.newWindow(link);
+        }
+    };
     const contentHandler = (contents: string)=>{
         const q = props.query;
         const content = contents.split(`${q}`);
@@ -68,10 +84,7 @@ const ResultItem = (props: ResultItemProps) => {
         return (<>
             {getTitleHead()}
             <div className={styles.title}>
-                <Button type={'link'}  onClick={()=>{
-                    // @ts-ignore
-                    window.document.newWindow(link||props.link);
-                }}>
+                <Button type={'link'}  onClick={()=>onClick(link||props.link)}>
                     <h3>{title}</h3>
                 </Button>
             </div>
@@ -81,10 +94,7 @@ const ResultItem = (props: ResultItemProps) => {
                         <div className={styles.videoPic}>
                             <img src={video} alt={'video'}/>
                             <div className={styles.cover} >
-                                <PlayCircleFilled onClick={()=>{
-                                    // @ts-ignore
-                                    window.document.newWindow(link||props.link);
-                                }} />
+                                <PlayCircleFilled onClick={()=>onClick(link||props.link)} />
                             </div>
                         </div>
                     </div>
@@ -118,10 +128,7 @@ const ResultItem = (props: ResultItemProps) => {
               </div>
           </div>
           <div className={styles.title}>
-              <Button type={'link'}   onClick={()=>{
-                  // @ts-ignore
-                  window.document.newWindow(props.link);
-              }}>
+              <Button type={'link'}   onClick={()=>onClick(props.link)}>
                   <h3>{props.title}</h3>
               </Button>
           </div>
@@ -132,10 +139,7 @@ const ResultItem = (props: ResultItemProps) => {
                           <div className={styles.videoPic}>
                               <img src={props.video} alt={'video'} />
                               <div className={styles.cover} >
-                                  <PlayCircleFilled onClick={()=>{
-                                      // @ts-ignore
-                                      window.document.newWindow(props.link);
-                                  }} />
+                                  <PlayCircleFilled onClick={()=>onClick(props.link)} />
                               </div>
                           </div>
                       </div>
@@ -149,10 +153,6 @@ const ResultItem = (props: ResultItemProps) => {
           <div className={styles.children}>
               {props.children&&props.children.map((child, index) =>{
                   return (<div key={index}>{resultItemTitle({...child})}</div>)
-                  // if (props.query&&!child.query){
-                  //     child.query = props.query;
-                  // }
-                  // return (<ResultItem key={index} {...child}></ResultItem>)
               })}
           </div>
       </div>

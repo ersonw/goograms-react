@@ -5,7 +5,7 @@
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  max-width: 1000px;
+  min-width: 500px;
   //overflow: auto;
   .left{
     width: 63%;
@@ -13,6 +13,9 @@
     flex-direction: column;
     @media (max-width: 768px) {
       width: 100%;
+    }
+    @media (min-width: 1500px) {
+      margin: 0 10vw;
     }
     justify-content: flex-start;
     >div{
