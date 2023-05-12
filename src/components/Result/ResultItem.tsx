@@ -12,7 +12,7 @@ export type ResultItemProps = {
     video?: string,
     title?: string,
     content: string,
-    history?: string,
+    historyTime?: string,
     children?: any[],
 }
 const ResultItem = (props: ResultItemProps) => {
@@ -56,7 +56,20 @@ const ResultItem = (props: ResultItemProps) => {
         }
         return <>{contents}</>
     }
-    const resultItemTitle = ({title,url,link,video,content,history}: ResultItemProps)=>{
+    const historyHandler = (historyTime : any)=>{
+        if (historyTime!==undefined){
+            const t = new Date(historyTime);
+            if (t.getTime()>0){
+                if (t.getTime() < (new Date().setHours(0,0,0,0) - 86400000 * 2)){
+                    return <>您 {`${t.getFullYear()} ${t.getMonth()+1}-${t.getDate()}`} 访问过该网页</>
+                }else{
+                    return <>您 最近 访问过该网页</>
+                }
+            }
+        }
+        return <></>
+    };
+    const resultItemTitle = ({title,url,link,video,content,historyTime}: ResultItemProps)=>{
 
         const getTitleHead = ()=>{
             if (url){
@@ -103,7 +116,7 @@ const ResultItem = (props: ResultItemProps) => {
                     {contentHandler(content)}
                 </div>
             </div>
-            <div className={styles.history}></div>
+            <div className={styles.history}>{historyHandler(historyTime)}</div>
         </>)
     }
 
@@ -149,7 +162,7 @@ const ResultItem = (props: ResultItemProps) => {
                   {contentHandler(props.content)}
               </div>
           </div>
-          <div className={styles.history}></div>
+          <div className={styles.history}>{historyHandler(props.historyTime)}</div>
           <div className={styles.children}>
               {props.children&&props.children.map((child, index) =>{
                   return (<div key={index}>{resultItemTitle({...child})}</div>)

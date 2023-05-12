@@ -50,11 +50,11 @@ const Search = (props: any) => {
     return  (
         <div className={styles.search}>
             <div className={styles.left}>
-                <div className={styles.tips}>
-                    <span>
-                        找到约 {total} 条结果 （用时 0.59 秒）
-                    </span>
-                </div>
+                {/*<div className={styles.tips}>*/}
+                {/*    <span>*/}
+                {/*        找到约 {total} 条结果 （用时 0.59 秒）*/}
+                {/*    </span>*/}
+                {/*</div>*/}
                 {page==='1'&&(
                     <Netfly query={q} />
                 )}
