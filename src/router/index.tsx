@@ -10,7 +10,7 @@ const router: RouteConfig[] = [
     {
         path: "/",
         component: Home,
-        title: "Home",
+        title: "Goograms 搜索",
         exact: true,
         navbar: true,
     },

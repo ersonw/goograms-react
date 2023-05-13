@@ -43,13 +43,16 @@ const BaseHeader = (props: any)=>{
         }
     },[pathname,last,history])
     useEffect(() => {
-        const query = qs.parse(search);
-        const {q} = query;
-        if (q!==undefined){
-            setText(q as any);
-            document.title = `${q} - ${title}`;
+        if (pathname==='/search'){
+            const query = qs.parse(search);
+            const {q} = query;
+            if (q!==undefined){
+                setText(q as any);
+                document.title = `${q} - Goograms`;
+                // document.title = `${q} - ${title}`;
+            }
         }
-    }, [search,title]);
+    }, [search,title,pathname]);
 
     const onSearch = ()=>{
         // @ts-ignore

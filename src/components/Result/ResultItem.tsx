@@ -48,13 +48,15 @@ const ResultItem = (props: ResultItemProps) => {
     };
     const contentHandler = (contents: string)=>{
         const q = props.query;
-        const content = contents.split(`${q}`);
-        if (content.length>1){
-            return <>{content.map((val,index)=>{
-                return <span key={index}>{val}<em className={styles.searchField}>{q}</em></span>
-            })}</>
-        }
-        return <>{contents}</>
+        const content = contents.replace(`${q}`, `<em>${q}</em>`);
+        return <div dangerouslySetInnerHTML = {{__html: content}} ></div>
+        // const content = contents.split(`${q}`);
+        // if (content.length>1){
+        //     return <>{content.map((val,index)=>{
+        //         return <span key={index}>{val}<em className={styles.searchField}>{q}</em></span>
+        //     })}</>
+        // }
+        // return <>{contents}</>
     }
     const historyHandler = (historyTime : any)=>{
         if (historyTime!==undefined){

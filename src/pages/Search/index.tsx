@@ -15,14 +15,14 @@ const Search = (props: any) => {
     const {q, page, cid } = query;
     const {error, loading, data } = useFetchData('/complete/search',{},{q, page,cid});
     useEffect(() => {
-        if (q===undefined){
+        if (q===undefined||q===''){
             history.push({pathname: "/", })
             history.go()
         }else{
-            if (page===undefined || cid === undefined){
+            if (page===undefined || cid === undefined || page==='' || cid === ''){
                 // @ts-ignore
                 let searchString = qs.stringify({q: q,page,cid: window.document.newWindowId()});
-                if (page===undefined){
+                if (page===undefined || page===''){
                     // @ts-ignore
                     searchString = qs.stringify({q: q,page: 1,cid: window.document.newWindowId()});
                 }
