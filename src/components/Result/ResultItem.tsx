@@ -10,6 +10,7 @@ export type ResultItemProps = {
     url?: string,
     link?: string,
     video?: string,
+    picture?: string,
     title?: string,
     content: string,
     historyTime?: string,
@@ -104,17 +105,17 @@ const ResultItem = (props: ResultItemProps) => {
                 </Button>
             </div>
             <div className={styles.contentBox}>
-                {video&&(
-                    <div className={styles.videoPicBox}>
-                        <div className={styles.videoPic}>
-                            <img src={video} alt={'video'}/>
-                            <div className={styles.cover} >
-                                <PlayCircleFilled onClick={()=>onClick(link||props.link)} />
-                            </div>
-                        </div>
-                    </div>
-                )}
-                <div className={video?styles.content:styles.contentText}>
+                {/*{video&&(*/}
+                {/*    <div className={styles.videoPicBox}>*/}
+                {/*        <div className={styles.videoPic}>*/}
+                {/*            <img src={video} alt={'video'}/>*/}
+                {/*            <div className={styles.cover} >*/}
+                {/*                <PlayCircleFilled onClick={()=>onClick(link||props.link)} />*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*)}*/}
+                <div className={styles.contentText}>
                     {contentHandler(content)}
                 </div>
             </div>
@@ -148,7 +149,7 @@ const ResultItem = (props: ResultItemProps) => {
               </Button>
           </div>
           <div className={styles.contentBox}>
-              {props.video&&(
+              {props.video?(
                   <>
                       <div className={styles.videoPicBox}>
                           <div className={styles.videoPic}>
@@ -159,8 +160,17 @@ const ResultItem = (props: ResultItemProps) => {
                           </div>
                       </div>
                   </>
+              ):(
+                  <>{props.picture&&(<div className={styles.videoPicBox}>
+                      <div className={styles.videoPic}>
+                          <img src={props.picture} alt={'picture'} />
+                          <div className={styles.cover} >
+                              {/*<PlayCircleFilled onClick={()=>onClick(props.link)} />*/}
+                          </div>
+                      </div>
+                  </div>)}</>
               )}
-              <div className={props.video?styles.content:styles.contentText}>
+              <div className={props.video||props.picture?styles.content:styles.contentText}>
                   {contentHandler(props.content)}
               </div>
           </div>
