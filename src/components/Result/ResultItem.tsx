@@ -23,10 +23,16 @@ const ResultItem = (props: ResultItemProps) => {
     const [domain, setDomain] = useState('');
     useEffect(() => {
         if (url){
-            const uri = url.replace(/(ht|f)tp(s?):\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*((:[0-9]+)?)*(\/?)/gi,"/").replace(/\?[0-9a-zA-Z](.*)?/gi,"");
+            // console.log(url)
+            let uri = decodeURIComponent(url).replace(/^(ht|f)tp(s?):\/\/((www\.)?)(([0-9a-zA-Z]*\.)?)([0-9a-zA-Z]*\.[a-zA-Z]*)((:[0-9]+)?)\//gi,"/").replace(/\?(.*?)/gi,"");
             setBaseUri(uri.substring(1).split('/'));
-            setBaseUrl(url.replace(uri,'').replace(/\?[0-9a-zA-Z](.*)?/gi,""));
-            setDomain(url.replace(uri,'').replace(/\?[0-9a-zA-Z](.*)?/gi,"").replace(/(ht|f)tp(s?):\/\/((www\.)?)/,''));
+            if (uri.length>1){
+                setBaseUrl(decodeURIComponent(url).replace(uri,''));
+                setDomain(decodeURIComponent(url).replace(uri,'').replace(/^(ht|f)tp(s?):\/\/((www\.)?)/,''));
+            }else {
+                setBaseUrl(decodeURIComponent(url).substring(0,url.length-1));
+                setDomain(decodeURIComponent(url).substring(0,url.length-1).replace(/^(ht|f)tp(s?):\/\/((www\.)?)/,''));
+            }
         }
         return () => {
         };
@@ -76,19 +82,33 @@ const ResultItem = (props: ResultItemProps) => {
 
         const getTitleHead = ()=>{
             if (url){
-                const buri = url.replace(/(ht|f)tp(s?):\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*((:[0-9]+)?)*(\/?)/gi,"/").replace(/\?[0-9a-zA-Z](.*)?/gi,"");
-                const bUri=(buri.substring(1).split('/'));
-                const bUrl=(url.replace(buri,'').replace(/\?[0-9a-zA-Z](.*)?/gi,""));
+                let uri = decodeURIComponent(url).replace(/^(ht|f)tp(s?):\/\/((www\.)?)(([0-9a-zA-Z]*\.)?)([0-9a-zA-Z]*\.[a-zA-Z]*)((:[0-9]+)?)\//gi,"/").replace(/\?(.*?)/gi,"");
+                setBaseUri(uri.substring(1).split('/'));
+                if (uri.length>1){
+                    setBaseUrl(decodeURIComponent(url).replace(uri,''));
+                    setDomain(decodeURIComponent(url).replace(uri,'').replace(/^(ht|f)tp(s?):\/\/((www\.)?)/,''));
+                }else {
+                    setBaseUrl(decodeURIComponent(url).substring(0,url.length-1));
+                    setDomain(decodeURIComponent(url).substring(0,url.length-1).replace(/^(ht|f)tp(s?):\/\/((www\.)?)/,''));
+                }
+                const buri = decodeURIComponent(url).replace(/^(ht|f)tp(s?):\/\/((www\.)?)(([0-9a-zA-Z]*\.)?)([0-9a-zA-Z]*\.[a-zA-Z]*)((:[0-9]+)?)\//gi,"/").replace(/\?(.*?)/gi,"");
+                let bUri=([]as string[]);
+                let bUrl=decodeURIComponent(url).substring(0,url.length-1);
+                if (buri.length>1){
+                    bUri=  decodeURIComponent(url).substring(0,url.length-1).split('/');
+                    bUrl= decodeURIComponent(url).replace(uri,'').replace(/^(ht|f)tp(s?):\/\/((www\.)?)/,'');
+                }
                 return (<div className={styles.tag}>
                     <div>
                         <div className={styles.url}>
                             <cite>
                                 {bUrl}
                                 {bUri && bUri.map((val: any, index: number) => {
-                                    return (<span key={`${url}-${index}`}> {'>'} {val}</span>)
+                                    if (!val) return <span key={`${url}-${index}`}/>
+                                    return (<span key={`${url}-${index}`}> {'>'} {(val)}</span>)
                                 })}
                             </cite>
-                            <MoreOutlined className={styles.more}/>
+                            <MoreOutlined className={styles.more} onClick={()=>onClick((link||props.link)?.replaceAll("result","snapshot"))}/>
                         </div>
                     </div>
                 </div>);
@@ -122,8 +142,12 @@ const ResultItem = (props: ResultItemProps) => {
             <div className={styles.history}>{historyHandler(historyTime)}</div>
         </>)
     }
+    const containsEncodedComponents = (x: string)=> {
+        // ie ?,=,&,/ etc
+        return (decodeURI(x) !== decodeURIComponent(x));
+    }
 
-  return (
+    return (
       <div className={styles.resultItem}>
           {props.sponsor&&(<div className={styles.sponsor}>赞助商</div>)}
           <div className={styles.tag}>
@@ -136,10 +160,11 @@ const ResultItem = (props: ResultItemProps) => {
                       <cite>
                           {baseUrl}
                           {baseUri&&baseUri.map((val: any, index: number)=>{
-                              return (<span key={`${url}-${index}`}> {'>'} {val}</span>)
+                              if (!val) return <span key={`${url}-${index}`}/>
+                              return (<span key={`${url}-${index}`}> {'>'} {(val)}</span>)
                           })}
                       </cite>
-                      <MoreOutlined className={styles.more}/>
+                      <MoreOutlined className={styles.more} onClick={()=>onClick(props.link?.replaceAll("result","snapshot"))}/>
                   </div>
               </div>
           </div>

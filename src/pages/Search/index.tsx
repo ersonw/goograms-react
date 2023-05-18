@@ -72,7 +72,7 @@ const Search = (props: any) => {
                         // hideOnSinglePage={true}
                         pageSize={10}
                         showSizeChanger={false}
-                        total={total>2100?2100:total} />
+                        total={total} />
                 </div>
             </div>
             <div className={styles.right}>

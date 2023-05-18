@@ -37,6 +37,12 @@ const Netfly = ({query}: any) => {
     if (videos.length===0){
         return <></>;
     }
+    const contentText = (str: string)=>{
+        if (str.length > 105){
+            str = str.substring(0,105);
+        }
+        return str;
+    }
     return (<div className={styles.netfly}>
         <br />
         <div className={styles.tag}>
@@ -60,7 +66,7 @@ const Netfly = ({query}: any) => {
                             <a href={videos[0].url}>{videos[0].title}</a>
                         </div>
                         <div className={styles.actor}>
-                            <span>{videos[0].actor}</span>
+                            <span>{contentText(videos[0].actor)}</span>
                             <span>{videos[0].resTime}</span>
                         </div>
                     </div>
@@ -81,7 +87,7 @@ const Netfly = ({query}: any) => {
                             <a href={videos[1].url}>{videos[1].title}</a>
                         </div>
                         <div className={styles.actor}>
-                            <span>{videos[1].actor}</span>
+                            <span>{contentText(videos[1].actor)}</span>
                             <span>{videos[1].resTime}</span>
                         </div>
                     </div>
@@ -103,7 +109,7 @@ const Netfly = ({query}: any) => {
                             <a href={videos[2].url}>{videos[2].title}</a>
                         </div>
                         <div className={styles.actor}>
-                            <span>{videos[2].actor}</span>
+                            <span>{contentText(videos[2].actor)}</span>
                             <span>{videos[2].resTime}</span>
                         </div>
                     </div>

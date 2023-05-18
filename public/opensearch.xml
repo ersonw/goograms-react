@@ -2,7 +2,7 @@
 <ShortName>Goograms</ShortName>
 <Description>Goograms Search</Description>
 <Url type="text/html" method="get" template="https://goograms.com/search?q={searchTerms}"/>
-<Image width="16" height="16">https://abs.goograms.com/favicons/favicon.ico</Image>
+<Image width="16" height="16">https://goograms.com/favicon.ico</Image>
 <InputEncoding>UTF-8</InputEncoding>
-<moz:SearchForm>https://goograms.com/search-home</moz:SearchForm>
+<moz:SearchForm>https://goograms.com/search</moz:SearchForm>
 </OpenSearchDescription>

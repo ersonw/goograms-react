@@ -17,7 +17,13 @@ const RouteComment = (props: any) =>{
     document.title = route.title;
     useEffect(()=>{
         if(match.isExact&&route.redirect){
-            history.push({pathname: route.redirect});
+            if (route.redirect.startsWith("/")){
+                history.push({pathname: route.redirect});
+            }else{
+                history.go(-1);
+                // @ts-ignore
+                window.document.newWindow(route.redirect);
+            }
         }
     },[match,history,route.redirect]);
 
@@ -58,11 +64,36 @@ const App = () => {
     window.document.message = messageApi;
     // @ts-ignore
     window.document.newWindow = (url: string)=>{
-        window.open(url,'_blank','width=600,height=400,menubar=no,toolbar=no,status=no,scrollbars=yes')
+        let u = navigator.userAgent;
+        let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        const uri = url.replace(/(ht|f)tp(s?):\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*((:[0-9]+)?)*(\/?)/gi,"/").replace(/\?[0-9a-zA-Z](.*)?/gi,"");
+        // const uris = (uri.substring(1).split('/'));
+        // const baseurl = (url.replace(uri,'').replace(/\?[0-9a-zA-Z](.*)?/gi,""));
+        const domain = (url.replace(uri,'').replace(/\?[0-9a-zA-Z](.*)?/gi,"").replace(/(ht|f)tp(s?):\/\/((www\.)?)/,''));
+        if (domain.indexOf("t.me")>-1){
+            if (isIOS){
+                window.location.href = url;
+            }else{
+                window.open(url,'_blank','width=600,height=400,menubar=no,toolbar=no,status=no,scrollbars=yes')
+            }
+        }else {
+
+            if (isIOS){
+                window.location.href = url;
+            }else{
+                window.open(url,'target');
+            }
+        }
+
         // window.open(url,'_blank','menubar=no,toolbar=no,status=no,scrollbars=yes')
     };
+    function isSupportCanvas(){
+        var elem = document.createElement('canvas');
+        return !!(elem.getContext && elem.getContext('2d'));
+    }
     // @ts-ignore
     window.document.newWindowId = ()=>{
+        if (!isSupportCanvas()) return null;
         const canvas = document.createElement('canvas');
         canvas.width = 200;
         canvas.height=200;

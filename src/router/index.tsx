@@ -16,7 +16,7 @@ const router: RouteConfig[] = [
     },
     {
         path: "/about",
-        component: Home,
+        redirect: "https://t.me/YLLM8888",
         title: "关于 Goograms",
         exact: true,
         navbar: true,
@@ -28,42 +28,42 @@ const router: RouteConfig[] = [
         exact: true,
         navbar: true,
     },
-    {
-        path: '/user',
-        title: "用户管理",
-        navbar: true,
-        // component: User,
-        redirect: "/user/info",
-        routes: [
-            {
-                // path: "/user/login/:id",
-                path: "/user/login",
-                component: Login,
-                title: "登录页面",
-                hide: true,
-                exact: true,
-                // navbar: true,
-            },
-            {
-                path: "/user/info",
-                component: Info,
-                title: "用户信息",
-                exact: true,
-                navbar: true,
-            },
-            {
-                path: "/user/forgot-password",
-                component: ForgotPassword,
-                title: "忘记密码",
-                // navbar: true,
-            },
-            {
-                path: '*',
-                title: '错误404',
-                component: NotFound,
-            }
-        ]
-    },
+    // {
+    //     path: '/user',
+    //     title: "用户管理",
+    //     navbar: true,
+    //     // component: User,
+    //     redirect: "/user/info",
+    //     routes: [
+    //         {
+    //             // path: "/user/login/:id",
+    //             path: "/user/login",
+    //             component: Login,
+    //             title: "登录页面",
+    //             hide: true,
+    //             exact: true,
+    //             // navbar: true,
+    //         },
+    //         {
+    //             path: "/user/info",
+    //             component: Info,
+    //             title: "用户信息",
+    //             exact: true,
+    //             navbar: true,
+    //         },
+    //         {
+    //             path: "/user/forgot-password",
+    //             component: ForgotPassword,
+    //             title: "忘记密码",
+    //             // navbar: true,
+    //         },
+    //         {
+    //             path: '*',
+    //             title: '错误404',
+    //             component: NotFound,
+    //         }
+    //     ]
+    // },
     {
         path: '*',
         title: '错误404',
