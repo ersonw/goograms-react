@@ -6,7 +6,7 @@ import Auth from "./auth";
 
 const service = axios.create({
   baseURL: process.env.API || '/',//'http://172.21.68.12:8080', // api base_url
-  timeout: 10000 // 请求超时时间
+  timeout: 30000 // 请求超时时间
 });
 
 /* 错误处理 */
