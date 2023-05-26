@@ -1,7 +1,8 @@
 import styles from './ResultItem.module.less';
 import {MoreOutlined, PlayCircleFilled,} from "@ant-design/icons";
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import Link from 'antd/es/typography/Link';
+
 
 export type ResultItemProps = {
     query?: string,
@@ -121,7 +122,7 @@ const ResultItem = (props: ResultItemProps) => {
         return (<>
             {getTitleHead()}
             <div className={styles.title}>
-                <Link to={getLink(link||props.link)}>
+                <Link target={'_blank'} href={getLink(link||props.link)}>
                     <h3>{title}</h3>
                 </Link>
                 {/*<Button type={'link'}  onClick={()=>onClick(link||props.link)}>*/}
@@ -176,7 +177,7 @@ const ResultItem = (props: ResultItemProps) => {
               {/*<Button type={'link'}   onClick={()=>onClick(props.link)}>*/}
               {/*    <h3>{props.title}</h3>*/}
               {/*</Button>*/}
-              <Link to={getLink(props.link)}>
+              <Link target={'_blank'} href={getLink(props.link)}>
                   <h3>{props.title}</h3>
               </Link>
           </div>
