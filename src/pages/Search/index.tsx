@@ -43,7 +43,7 @@ const Search = (props: any) => {
     if (error || totalData.error) {
         return <Error />
     }
-    console.log(totalData);
+    // console.log(totalData);
     // const {results, total} = data;
     const onChange: PaginationProps['onChange'] = (page) => {
         // @ts-ignore
