@@ -50,8 +50,11 @@ service.interceptors.response.use( (response: any) => {
   if (response.status !== 200) {
     return Promise.reject(response.data);
   }
-  /* 对blob下载特殊处理 */
+  /* 特殊处理 */
   if (response.config.responseType === "blob") {
+    return response;
+  }
+  if (response.config.responseType === "stream") {
     return response;
   }
   const {code,msg,data} = response.data;

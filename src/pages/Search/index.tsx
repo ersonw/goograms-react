@@ -1,19 +1,22 @@
 import qs from 'query-string';
-import useFetchData from "@/utils/useFetchData";
-import React, {useEffect,} from "react";
+import React, { useEffect, useState,} from "react";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 import styles from './index.module.less';
 import Netfly from "@/components/Netfly";
 import ResultItem from "@/components/Result/ResultItem";
 import {Pagination, PaginationProps} from "antd";
+import useFetchStream from "@/utils/FetchStream";
+import useFetchData from "@/utils/useFetchData";
 
 const Search = (props: any) => {
     const {location, history} = props;
     let {search} = location;
     const query = qs.parse(search);
     const {q, page, cid } = query;
-    const {error, loading, data } = useFetchData('/complete/search',{},{q, page,cid});
+    const [total, setTotal] = useState(0);
+    const {data, error} = useFetchStream('/complete/search',{q, page,cid});
+    const totalData = useFetchData('/complete/count',{},{q, page,cid});
     useEffect(() => {
         if (q===undefined||q===''){
             history.push({pathname: "/", })
@@ -33,13 +36,15 @@ const Search = (props: any) => {
         return () => {
         };
     }, [q,page,cid,history]);
-    if(loading){
-        return (<Loading />);
+    if(!totalData.loading&&totalData.data.total&&total!==totalData.data.total){
+
+        setTotal(totalData.data.total);
     }
-    if (error){
+    if (error || totalData.error) {
         return <Error />
     }
-    const {results, total} = data;
+    console.log(totalData);
+    // const {results, total} = data;
     const onChange: PaginationProps['onChange'] = (page) => {
         // @ts-ignore
         const searchString = qs.stringify({q: q,page,cid: window.document.newWindowId()});
@@ -58,7 +63,7 @@ const Search = (props: any) => {
                 {page==='1'&&(
                     <Netfly query={q} />
                 )}
-                {results&&results.map((value: any, index :number) =>{
+                {data&&data.map((value: any, index :number) =>{
                     return (<ResultItem key={index} {...value} query={`${q}`} />);
                 })}
                 <div className={styles.page}>
@@ -66,9 +71,9 @@ const Search = (props: any) => {
                         <img src={'/goograms_logo.png'} alt={'logo'}/>
                     </div>
                     <Pagination
-                        defaultCurrent={parseInt(`${page}`)}
+                        // defaultCurrent={parseInt(`${page}`)}
                         onChange={onChange}
-                        // current={parseInt(`${page}`)}
+                        current={parseInt(`${page}`)}
                         // hideOnSinglePage={true}
                         pageSize={10}
                         showSizeChanger={false}

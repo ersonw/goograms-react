@@ -1,7 +1,7 @@
 import styles from './ResultItem.module.less';
 import {MoreOutlined, PlayCircleFilled,} from "@ant-design/icons";
 import React, {useEffect, useState} from "react";
-import {Button} from "antd";
+import {Link} from "react-router-dom";
 
 export type ResultItemProps = {
     query?: string,
@@ -38,10 +38,11 @@ const ResultItem = (props: ResultItemProps) => {
         };
     }, [url]);
     const onClick = (link: any) => {
+        // @ts-ignore
+        window.document.newWindow(getLink(link));
+    };
+    const getLink = (link: any) => {
         if (link!==undefined){
-            // if (/^https?:\/\/t\.me\/.+/.test(link)){
-            //
-            // }
             if (`${link}`.indexOf("?")>-1){
                 // @ts-ignore
                 link = `${link}&cid=${window.document.newWindowId()}`;
@@ -49,9 +50,9 @@ const ResultItem = (props: ResultItemProps) => {
                 // @ts-ignore
                 link = `${link}?cid=${window.document.newWindowId()}`;
             }
-            // @ts-ignore
-            window.document.newWindow(link);
+            return link;
         }
+        return '#';
     };
     const contentHandler = (contents: string)=>{
         const q = props.query;
@@ -120,9 +121,12 @@ const ResultItem = (props: ResultItemProps) => {
         return (<>
             {getTitleHead()}
             <div className={styles.title}>
-                <Button type={'link'}  onClick={()=>onClick(link||props.link)}>
+                <Link to={getLink(link||props.link)}>
                     <h3>{title}</h3>
-                </Button>
+                </Link>
+                {/*<Button type={'link'}  onClick={()=>onClick(link||props.link)}>*/}
+                {/*    <h3>{title}</h3>*/}
+                {/*</Button>*/}
             </div>
             <div className={styles.contentBox}>
                 {/*{video&&(*/}
@@ -169,9 +173,12 @@ const ResultItem = (props: ResultItemProps) => {
               </div>
           </div>
           <div className={styles.title}>
-              <Button type={'link'}   onClick={()=>onClick(props.link)}>
+              {/*<Button type={'link'}   onClick={()=>onClick(props.link)}>*/}
+              {/*    <h3>{props.title}</h3>*/}
+              {/*</Button>*/}
+              <Link to={getLink(props.link)}>
                   <h3>{props.title}</h3>
-              </Button>
+              </Link>
           </div>
           <div className={styles.contentBox}>
               {props.video?(

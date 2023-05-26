@@ -1,4 +1,5 @@
 import fetchRequest from './fetchRequest';
+import qs from 'query-string';
 
 const http = {
   get(url: string, data={}) {
@@ -50,6 +51,10 @@ const http = {
           reject(error);
         });
     });
+  },
+  fetch(url: string, data={}, config?: RequestInit) {
+    const query = qs.stringify(data);
+    return fetch(`${url}?${query}`,config);
   },
 }
 
