@@ -68,6 +68,7 @@ const useFetchStream = (url: string, data?: any,method='GET') => {
                             try {
                                 const temp = JSON.parse(temps[i]);
                                 result.push(temp);
+                                // console.log(temp);
                                 dispatch({ type: 'success', payload: result });
                             }catch (e) {
                                 // console.log(e);

@@ -1,5 +1,5 @@
 import styles from './ResultItem.module.less';
-import {MoreOutlined, PlayCircleFilled,} from "@ant-design/icons";
+import {GlobalOutlined, MoreOutlined, PlayCircleFilled,} from "@ant-design/icons";
 import React, {useEffect, useState} from "react";
 import Link from 'antd/es/typography/Link';
 
@@ -157,7 +157,7 @@ const ResultItem = (props: ResultItemProps) => {
           {props.sponsor&&(<div className={styles.sponsor}>赞助商</div>)}
           <div className={styles.tag}>
               <div className={styles.icon}>
-                  <img src={props.icon} alt={'logo'}/>
+                  {props.icon?(<img src={props.icon} alt={'logo'}/>):(<GlobalOutlined />)}
               </div>
               <div>
                   <span>{domain}</span>
