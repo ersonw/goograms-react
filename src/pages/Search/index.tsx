@@ -37,11 +37,13 @@ const Search = (props: any) => {
         };
     }, [q,page,cid,history]);
     if(!totalData.loading&&totalData.data.total&&total!==totalData.data.total){
-
         setTotal(totalData.data.total);
     }
     if (error || totalData.error) {
         return <Error />
+    }
+    if (data.length<1){
+        return <Loading />
     }
     // console.log(totalData);
     // const {results, total} = data;
